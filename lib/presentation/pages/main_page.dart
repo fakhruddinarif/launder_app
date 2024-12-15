@@ -1,42 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:launder_app/presentation/blocs/user/user_bloc.dart';
-import 'package:launder_app/presentation/blocs/user/user_event.dart';
-import 'package:launder_app/presentation/blocs/user/user_state.dart';
+import 'package:launder_app/presentation/pages/home/home_page.dart';
+import 'package:launder_app/presentation/pages/outlet/outlet_page.dart';
+import 'package:launder_app/presentation/pages/user/account_page.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key? key}) : super(key: key);
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  int selectedIndex = 0;
+  List<Widget> pageOptions = [
+    HomePage(),
+    OutletPage(),
+    AccountPage(),
+  ];
+
+  void onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<UserBloc, UserState>(
-          builder: (context, state) {
-            return Scaffold(
-              backgroundColor: Colors.white,
-              body: Center(
-                child: GestureDetector(
-                  onTap: () {
-                    context.read<UserBloc>().add(UserLogoutEvent());
-                  },
-                  child: const Text('Logout'),
-                ),
-              ),
-            );
-          },
-          listener: (context, state) {
-            if (state is UserSuccess) {
-              Navigator.pushReplacementNamed(context, '/login');
-            }
-            if (state is UserFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  )
-              );
-            }
-          }
+      backgroundColor: Colors.white,
+      body: IndexedStack(
+        index: selectedIndex,
+        children: pageOptions,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: selectedIndex,
+        onTap: onItemTapped,
+
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.store),
+            label: 'Outlet',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Account',
+          ),
+        ],
+        selectedItemColor: Colors.blueAccent,
       ),
     );
   }

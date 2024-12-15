@@ -11,14 +11,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserRegisterEvent>((event, emit) async {
       emit(UserLoading());
       try {
-        final user = await userService.register(RegisterUserRequest(
+        await userService.register(RegisterUserRequest(
             name: event.name,
             username: event.username,
             email: event.email,
             phone: event.phone,
             password: event.password
         ));
-        emit(const UserRegister(message: 'User registered successfully'));
+        emit(const UserRegisterSuccess(message: 'User registered successfully'));
+        print('User registered successfully');
       } catch (e) {
         emit(UserFailure(message: e.toString()));
       }
@@ -31,7 +32,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             username: event.username,
             password: event.password
         ));
-        emit(const UserLogin(message: 'User logged in successfully'));
+        emit(const UserLoginSuccess(message: 'User logged in successfully'));
+        print('User logged in successfully');
       } catch (e) {
         emit(UserFailure(message: e.toString()));
       }
@@ -42,6 +44,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       try {
         final user = await userService.get();
         emit(UserSuccess(message: 'User success get data user', data: user));
+        print('User success get data user');
       } catch (e) {
         emit(UserFailure(message: e.toString()));
       }
@@ -57,6 +60,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             phone: event.phone
         ));
         emit(UserSuccess(message: 'User success update data user', data: user));
+        print('User success update data user');
       } catch (e) {
         emit(UserFailure(message: e.toString()));
       }
@@ -66,7 +70,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserLoading());
       try {
         await userService.logout();
-        emit(const UserLogout(message: 'User logout is successfully'));
+        emit(const UserLogoutSuccess(message: 'User logout is successfully'));
+        print('User logout is successfully');
       } catch (e) {
         emit(UserFailure(message: e.toString()));
       }

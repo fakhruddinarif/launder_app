@@ -12,11 +12,11 @@ class UserService {
       if (response.statusCode == 201) {
         return User.fromJson(data['data']);
       } else {
-        throw Exception(data['message']);
+        throw data['errors'];
       }
     }
     catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -28,11 +28,11 @@ class UserService {
         await AuthLocalStorage().save(TokenUser.fromJson(data['data']));
         return TokenUser.fromJson(data['data']);
       } else {
-        throw Exception(data['message']);
+        throw data['errors'];
       }
     }
     catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -43,11 +43,11 @@ class UserService {
       if (response.statusCode == 200) {
         return User.fromJson(data['data']);
       } else {
-        throw Exception(data['message']);
+        throw data['errors'];
       }
     }
     catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -58,11 +58,11 @@ class UserService {
       if (response.statusCode == 200) {
         return User.fromJson(data['data']);
       } else {
-        throw Exception(data['message']);
+        throw data['errors'];
       }
     }
     catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -73,11 +73,11 @@ class UserService {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw Exception(data['message']);
+        throw data['errors'];
       }
     }
     catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -89,10 +89,10 @@ class UserService {
         await AuthLocalStorage().remove();
         return true;
       } else {
-        throw Exception(data['message']);
+        throw data['errors'];
       }
     } catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 }

@@ -25,7 +25,7 @@ class User {
       name: json['name'],
       username: json['username'],
       email: json['email'],
-      phone: json['phone'],
+      phone: json['phone'] ,
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
       deletedAt: json['deleted_at'] != null ? DateTime.parse(json['deleted_at']) : null,

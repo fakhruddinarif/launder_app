@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launder_app/presentation/blocs/user/user_bloc.dart';
 import 'package:launder_app/presentation/blocs/user/user_event.dart';
 import 'package:launder_app/presentation/blocs/user/user_state.dart';
-import 'package:launder_app/presentation/widgets/TextField.dart';
+import 'package:launder_app/presentation/widgets/TextFormField.dart';
 
 class RegisterPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -126,7 +126,13 @@ class RegisterPage extends StatelessWidget {
           );
         },
         listener: (context, state) {
-          if (state is UserRegister) {
+          if (state is UserRegisterSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.green,
+                )
+            );
             Navigator.pushReplacementNamed(context, '/login');
           }
           if (state is UserFailure) {

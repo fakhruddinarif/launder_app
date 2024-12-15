@@ -5,6 +5,7 @@ import 'package:launder_app/presentation/blocs/user/user_event.dart';
 import 'package:launder_app/presentation/pages/auth/login_page.dart';
 import 'package:launder_app/presentation/pages/auth/register_page.dart';
 import 'package:launder_app/presentation/pages/main_page.dart';
+import 'package:launder_app/presentation/pages/outlet/detail_outlet_page.dart';
 import 'package:launder_app/presentation/pages/splash_page.dart';
 import 'package:launder_app/services/user_service.dart';
 import 'package:launder_app/utils/local_storage/auth_local_storage.dart';
@@ -45,9 +46,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           routes: {
             '/splash': (context) => const SplashPage(),
-            '/home': (context) => const MainPage(),
+            '/home': (context) => MainPage(),
             '/login': (context) => LoginPage(),
             '/register': (context) => RegisterPage(),
+            '/outlet/detail': (context) => DetailOutletPage()
           },
         )
     );

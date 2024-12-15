@@ -12,28 +12,28 @@ class UserInitial extends UserState {}
 
 class UserLoading extends UserState {}
 
-class UserLogin extends UserState {
+class UserLoginSuccess extends UserState {
   final String message;
 
-  const UserLogin({required this.message});
+  const UserLoginSuccess({required this.message});
 
   @override
   List<Object> get props => [message];
 }
 
-class UserRegister extends UserState {
+class UserRegisterSuccess extends UserState {
   final String message;
 
-  const UserRegister({required this.message});
+  const UserRegisterSuccess({required this.message});
 
   @override
   List<Object> get props => [message];
 }
 
-class UserLogout extends UserState {
+class UserLogoutSuccess extends UserState {
   final String message;
 
-  const UserLogout({required this.message});
+  const UserLogoutSuccess({required this.message});
 
   @override
   List<Object> get props => [message];
