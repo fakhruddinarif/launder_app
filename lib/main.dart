@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:launder_app/presentation/blocs/outlet/outlet_bloc.dart';
+import 'package:launder_app/presentation/blocs/outlet/outlet_event.dart';
 import 'package:launder_app/presentation/blocs/user/user_bloc.dart';
 import 'package:launder_app/presentation/blocs/user/user_event.dart';
 import 'package:launder_app/presentation/pages/auth/login_page.dart';
 import 'package:launder_app/presentation/pages/auth/register_page.dart';
+import 'package:launder_app/presentation/pages/iot/iot_page.dart';
 import 'package:launder_app/presentation/pages/main_page.dart';
+import 'package:launder_app/presentation/pages/outlet/create_outlet_page.dart';
 import 'package:launder_app/presentation/pages/outlet/detail_outlet_page.dart';
+import 'package:launder_app/presentation/pages/resource/resource_page.dart';
 import 'package:launder_app/presentation/pages/splash_page.dart';
+import 'package:launder_app/services/outlet_service.dart';
 import 'package:launder_app/services/user_service.dart';
 import 'package:launder_app/utils/local_storage/auth_local_storage.dart';
 
@@ -22,7 +28,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => UserBloc(userService: UserService())..add(UserGetEvent()))
+          BlocProvider(create: (context) => UserBloc(userService: UserService())..add(UserGetEvent())),
+          BlocProvider(create: (context) => OutletBloc(outletService: OutletService())),
         ],
         child: MaterialApp(
           title: 'Launder App',
@@ -49,7 +56,10 @@ class MyApp extends StatelessWidget {
             '/home': (context) => MainPage(),
             '/login': (context) => LoginPage(),
             '/register': (context) => RegisterPage(),
-            '/outlet/detail': (context) => DetailOutletPage()
+            '/outlet/detail': (context) => DetailOutletPage(),
+            '/outlet/create': (context) => CreateOutletPage(),
+            '/outlet/iot': (context) => IotPage(),
+            '/outlet/resource': (context) => ResourcePage(),
           },
         )
     );

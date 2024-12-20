@@ -5,7 +5,7 @@ abstract class UserState extends Equatable {
   const UserState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UserInitial extends UserState {}
@@ -39,14 +39,14 @@ class UserLogoutSuccess extends UserState {
   List<Object> get props => [message];
 }
 
-class UserSuccess<T> extends UserState {
+class UserSuccess extends UserState {
   final String message;
-  final T data;
+  final User? data;
 
-  const UserSuccess({required this.message, required this.data});
+  const UserSuccess({required this.message, this.data});
 
   @override
-  List<Object> get props => [message, if (data is Object) data as Object else data.toString()];
+  List<Object?> get props => [message, data];
 }
 
 class UserFailure extends UserState {

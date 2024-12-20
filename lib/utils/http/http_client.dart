@@ -31,6 +31,24 @@ class LaunderHttpClient {
     return http.delete(Uri.parse('$_baseUrl/$endpoint'), headers: headers);
   }
 
+  static Future<http.Response> multipart(String endpoint, String method, Map<String, String> fields, List<Map<String, dynamic>> files) async {
+    final headers = await _getHeaders();
+    final request = http.MultipartRequest(method, Uri.parse('$_baseUrl/$endpoint'));
+    request.headers.addAll(headers);
+    fields.forEach((key, value) {
+      request.fields[key] = value;
+    });
+    for (var file in files) {
+      request.files.add(await http.MultipartFile.fromPath(
+        file['field'],
+        file['path'],
+        filename: file['filename'],
+      ));
+    }
+    final response = await request.send();
+    return http.Response.fromStream(response);
+  }
+
   static Future<Map<String, String>> _getHeaders() async {
     final token = await AuthLocalStorage().get();
     return {
